@@ -50,12 +50,11 @@ public class WeatherData {
 
     @Override
     public String toString() {
-        return "WeatherData{" +
-                "temperature=" + temperature +
-                ", pressure=" + pressure +
-                ", cloudiness=" + cloudiness +
-                ", windSpeed=" + windSpeed +
-                ", windDegree=" + windDegree +
-                '}';
+        return "Weather Data:" +
+                "\n\ttemperature = " + temperature +
+                "\n\tpressure = " + pressure +
+                "\n\tcloudiness = " + cloudiness +
+                "\n\twindSpeed = " + windSpeed +
+                "\n\twindDegree = " + windDegree;
     }
 }

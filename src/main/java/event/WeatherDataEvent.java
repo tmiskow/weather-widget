@@ -37,6 +37,6 @@ public class WeatherDataEvent extends DataEvent {
     // TODO
     @Override
     public String toString() {
-        return "WeatherDataEvent";
+        return "Fetched weather data.";
     }
 }

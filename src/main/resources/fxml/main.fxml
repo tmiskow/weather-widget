@@ -8,5 +8,11 @@
       fx:controller="controller.MainWindowController">
 
     <Button text="Refresh" fx:id="refreshButton"/>
-
+    <Label fx:id="temperatureLabel"/>
+    <Label fx:id="pressureLabel"/>
+    <Label fx:id="cloudinessLabel"/>
+    <Label fx:id="windSpeedLabel"/>
+    <Label fx:id="windDegreeLabel"/>
+    <Label fx:id="pm25Label"/>
+    <Label fx:id="pm10Label"/>
 </VBox>

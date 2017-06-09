@@ -1,5 +1,8 @@
 import com.jfoenix.controls.JFXDecorator;
+import data.AirQualityData;
 import data.WeatherData;
+import event.AirQualityDataEvent;
+import event.DataEvent;
 import event.EventStream;
 import event.WeatherDataEvent;
 import javafx.application.Application;
@@ -60,9 +63,15 @@ public class AppMain extends Application {
 
     private void setupLogger() {
         logger.info("Setting logger up...");
-        eventStream.getEvents().subscribe(logger::info);
+
         eventStream.getEvents().ofType(WeatherDataEvent.class)
-            .map(WeatherDataEvent::getWeatherData)
+            .map(weatherDataEvent ->
+                weatherDataEvent + "\n\t" + weatherDataEvent.getWeatherData())
+            .subscribe(logger::info);
+
+        eventStream.getEvents().ofType((AirQualityDataEvent.class))
+            .map(airQualityDataEvent ->
+                airQualityDataEvent + "\n\t" + airQualityDataEvent.getAirQualityData())
             .subscribe(logger::info);
     }
 }
