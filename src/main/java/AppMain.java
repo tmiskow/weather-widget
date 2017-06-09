@@ -1,5 +1,7 @@
 import com.jfoenix.controls.JFXDecorator;
+import data.WeatherData;
 import event.EventStream;
+import event.WeatherDataEvent;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
@@ -9,6 +11,8 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+import network.DataSource;
+import network.OpenWeatherDataSource;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 
@@ -31,8 +35,6 @@ public class AppMain extends Application {
 
         setupMainWindow();
         setupLogger();
-
-        // TODO
 
         mainWindow.show();
     }
@@ -59,5 +61,8 @@ public class AppMain extends Application {
     private void setupLogger() {
         logger.info("Setting logger up...");
         eventStream.getEvents().subscribe(logger::info);
+        eventStream.getEvents().ofType(WeatherDataEvent.class)
+            .map(WeatherDataEvent::getWeatherData)
+            .subscribe(logger::info);
     }
 }
