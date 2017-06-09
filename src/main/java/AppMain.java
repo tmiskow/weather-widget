@@ -1,10 +1,7 @@
 import com.jfoenix.controls.JFXDecorator;
 import data.AirQualityData;
 import data.WeatherData;
-import event.AirQualityDataEvent;
-import event.DataEvent;
-import event.EventStream;
-import event.WeatherDataEvent;
+import event.*;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
@@ -69,9 +66,12 @@ public class AppMain extends Application {
                 weatherDataEvent + "\n\t" + weatherDataEvent.getWeatherData())
             .subscribe(logger::info);
 
-        eventStream.getEvents().ofType((AirQualityDataEvent.class))
+        eventStream.getEvents().ofType(AirQualityDataEvent.class)
             .map(airQualityDataEvent ->
                 airQualityDataEvent + "\n\t" + airQualityDataEvent.getAirQualityData())
             .subscribe(logger::info);
+
+        eventStream.getEvents().ofType(ErrorEvent.class)
+            .subscribe(logger::error);
     }
 }

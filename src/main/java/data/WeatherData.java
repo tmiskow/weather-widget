@@ -2,6 +2,12 @@ package data;
 
 public class WeatherData {
 
+    private static float ABSOLUTE_ZERO = 273.15f;
+
+    public static float convertfromKelvinToCelsius(float kelvin) {
+        return kelvin - ABSOLUTE_ZERO;
+    }
+
     private Float temperature;
     private Float pressure;
     private Float cloudiness;

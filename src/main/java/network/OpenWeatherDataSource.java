@@ -25,18 +25,19 @@ public class OpenWeatherDataSource extends WeatherDataSource {
                 .map(WeatherDataEvent::new);
     }
 
-    @Override
-    protected WeatherData createWeatherData(JsonObject jsonObject) {
+    private WeatherData createWeatherData(JsonObject jsonObject) {
 
         JsonObject main = jsonObject.getAsJsonObject("main");
         JsonObject clouds = jsonObject.getAsJsonObject("clouds");
         JsonObject wind = jsonObject.getAsJsonObject("wind");
 
-        Float temperature = main.get("temp").getAsFloat();
-        Float pressure = main.get("pressure").getAsFloat();
-        Float cloudiness = clouds.get("all").getAsFloat();
-        Float windSpeed = wind.get("speed").getAsFloat();
-        Float windDegree = wind.get("deg").getAsFloat();
+        float temperature = main.get("temp").getAsFloat();
+        temperature = WeatherData.convertfromKelvinToCelsius(temperature);
+
+        float pressure = main.get("pressure").getAsFloat();
+        float cloudiness = clouds.get("all").getAsFloat();
+        float windSpeed = wind.get("speed").getAsFloat();
+        float windDegree = wind.get("deg").getAsFloat();
 
         WeatherData weatherData = new WeatherData();
         weatherData.setTemperature(temperature);

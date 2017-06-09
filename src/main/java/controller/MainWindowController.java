@@ -7,16 +7,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import network.AirQualitySource;
-import network.DataSource;
-import network.OpenWeatherDataSource;
-import network.WeatherDataSource;
+import network.*;
 import rx.Observable;
 import rx.observables.JavaFxObservable;
 
 public class MainWindowController {
 
     private WeatherDataSource openWeatherDataSource = new OpenWeatherDataSource();
+    private WeatherDataSource meteoWeatherDataSource = new MeteoWeatherDataSource();
     private AirQualitySource airQualitySource = new AirQualitySource();
 
     @FXML
@@ -46,35 +44,49 @@ public class MainWindowController {
     @FXML
     public void initialize() {
 
-        EventStream.getInstance().join(openWeatherDataSource.dataSourceStream());
+        EventStream.getInstance().join(meteoWeatherDataSource.dataSourceStream());
 
         EventStream.getInstance().join(airQualitySource.dataSourceStream());
 
         EventStream.getInstance().join(JavaFxObservable.actionEventsOf(refreshButton)
             .map(actionEvent -> new RefreshRequestEvent()));
 
-        getWeatherDataEvents().map(WeatherDataEvent::getWeatherData).subscribe(weatherData ->
-            temperatureLabel.setText(weatherData.getTemperature().toString()));
+        setupLabels();
 
-        getWeatherDataEvents().map(WeatherDataEvent::getWeatherData).subscribe(weatherData ->
-            pressureLabel.setText(weatherData.getPressure().toString()));
+    }
 
-        getWeatherDataEvents().map(WeatherDataEvent::getWeatherData).subscribe(weatherData ->
-            cloudinessLabel.setText(weatherData.getCloudiness().toString()));
+    private void setLabel(Label label, Float data) {
 
-        getWeatherDataEvents().map(WeatherDataEvent::getWeatherData).subscribe(weatherData ->
-            windSpeedLabel.setText(weatherData.getWindSpeed().toString()));
+        String string = "-";
 
-        getWeatherDataEvents().map(WeatherDataEvent::getWeatherData).subscribe(weatherData ->
-            windDegreeLabel.setText(weatherData.getWindDegree().toString()));
+        if (data != null) {
+            string = data.toString();
+        }
+
+        label.setText(string);
+    }
+
+    private void setupLabels() {
+        getWeatherDataEvents().map(WeatherDataEvent::getWeatherData)
+            .subscribe(weatherData -> setLabel(temperatureLabel, weatherData.getTemperature()));
+
+        getWeatherDataEvents().map(WeatherDataEvent::getWeatherData)
+                .subscribe(weatherData -> setLabel(pressureLabel, weatherData.getPressure()));
+
+        getWeatherDataEvents().map(WeatherDataEvent::getWeatherData)
+                .subscribe(weatherData -> setLabel(cloudinessLabel, weatherData.getCloudiness()));
+
+        getWeatherDataEvents().map(WeatherDataEvent::getWeatherData)
+                .subscribe(weatherData -> setLabel(windSpeedLabel, weatherData.getWindSpeed()));
+
+        getWeatherDataEvents().map(WeatherDataEvent::getWeatherData)
+                .subscribe(weatherData -> setLabel(windDegreeLabel, weatherData.getWindDegree()));
 
         getAirQualityDataEvents().map(AirQualityDataEvent::getAirQualityData)
-            .subscribe(airQualityData -> pm25Label.setText(airQualityData.getPM25().toString()));
+                .subscribe(airQualityData -> setLabel(pm25Label, airQualityData.getPM25()));
 
         getAirQualityDataEvents().map(AirQualityDataEvent::getAirQualityData)
-                .subscribe(airQualityData -> pm10Label.setText(airQualityData.getPM10().toString()));
-
-
+                .subscribe(airQualityData -> setLabel(pm10Label, airQualityData.getPM10()));
     }
 
     private Observable<WeatherDataEvent> getWeatherDataEvents() {
