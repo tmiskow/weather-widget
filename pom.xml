@@ -155,6 +155,12 @@
             <artifactId>jsoup</artifactId>
             <version>1.9.1</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.kordamp.ikonli</groupId>
+            <artifactId>ikonli-material-pack</artifactId>
+            <version>1.9.0</version>
+        </dependency>
     </dependencies>
 
 </project>

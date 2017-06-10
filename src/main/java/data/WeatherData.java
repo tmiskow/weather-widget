@@ -18,12 +18,20 @@ public class WeatherData {
         return temperature;
     }
 
+    public String getTemperatureString() {
+        return temperature != null ? Math.round(temperature) + "°C" : "--";
+    }
+
     public void setTemperature(Float temperature) {
         this.temperature = temperature;
     }
 
     public Float getPressure() {
         return pressure;
+    }
+
+    public String getPressureString() {
+        return pressure != null ? Math.round(pressure) + " hPa" : "--";
     }
 
     public void setPressure(Float pressure) {
@@ -34,12 +42,20 @@ public class WeatherData {
         return cloudiness;
     }
 
+    public String getCloudinessString() {
+        return cloudiness != null ? Math.round(cloudiness) + "%" : "--";
+    }
+
     public void setCloudiness(Float cloudiness) {
         this.cloudiness = cloudiness;
     }
 
     public Float getWindSpeed() {
         return windSpeed;
+    }
+
+    public String getWindSpeedString() {
+        return windSpeed != null ? Math.round(windSpeed) + " m/s" : "--";
     }
 
     public void setWindSpeed(Float windSpeed) {
@@ -50,6 +66,10 @@ public class WeatherData {
         return windDegree;
     }
 
+    public String getWindDegreeString() {
+        return windDegree != null ? Math.round(windDegree) + "°" : "--";
+    }
+
     public void setWindDegree(Float windDegree) {
         this.windDegree = windDegree;
     }
@@ -57,10 +77,10 @@ public class WeatherData {
     @Override
     public String toString() {
         return "Weather Data:" +
-                "\n\ttemperature = " + temperature +
-                "\n\tpressure = " + pressure +
-                "\n\tcloudiness = " + cloudiness +
-                "\n\twindSpeed = " + windSpeed +
-                "\n\twindDegree = " + windDegree;
+                "\n\ttemperature = " + getTemperatureString() +
+                "\n\tpressure = " + getPressureString() +
+                "\n\tcloudiness = " + getCloudinessString() +
+                "\n\twindSpeed = " + getWindSpeedString() +
+                "\n\twindDegree = " + getWindDegreeString();
     }
 }

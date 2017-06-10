@@ -1,0 +1,47 @@
+* {
+    -fx-text-fill: #e1f5fe;
+    -fx-font-family: "Roboto";
+    -fx-font-size: 20;
+    -fx-icon-color: #e1f5fe;
+}
+
+FontIcon {
+    -fx-icon-size: 22px;
+}
+
+#main {
+    -fx-background-color: #03a9f4;
+}
+
+#topHBox {
+    -fx-padding: 5px;
+}
+
+#cityLabel {
+    -fx-pref-height: 100%;
+}
+
+#refreshButtonIcon {
+    -fx-icon-code: gmi-refresh;
+}
+
+#settingsButtonIcon {
+    -fx-icon-code: gmi-more-vert;
+}
+
+#centerVBox {
+    -fx-padding: 20;
+}
+
+#weatherHBox {
+    -fx-padding: 10px;
+}
+
+#temperatureLabel {
+    -fx-pref-height: 100%;
+}
+
+#weatherIcon {
+    -fx-icon-size: 70px;
+    -fx-icon-code: wi-day-cloudy;
+}

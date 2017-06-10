@@ -16,7 +16,7 @@ public abstract class DataSource {
 
     private static final Logger logger = Logger.getLogger(DataSource.class);
 
-    private static final int POLL_INTERVAL = 10;
+    private static final int POLL_INTERVAL = 60;
     private static final int INITIAL_DELAY = 0;
     private static final int TIMEOUT = 20;
 

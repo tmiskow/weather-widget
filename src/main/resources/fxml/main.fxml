@@ -1,18 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
 
-<VBox prefHeight="400.0" prefWidth="600.0"
-      xmlns="http://javafx.com/javafx/8"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="controller.MainWindowController">
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 
-    <Button text="Refresh" fx:id="refreshButton"/>
-    <Label fx:id="temperatureLabel"/>
-    <Label fx:id="pressureLabel"/>
-    <Label fx:id="cloudinessLabel"/>
-    <Label fx:id="windSpeedLabel"/>
-    <Label fx:id="windDegreeLabel"/>
-    <Label fx:id="pm25Label"/>
-    <Label fx:id="pm10Label"/>
-</VBox>
+<BorderPane fx:id="main" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainWindowController">
+   <center>
+      <VBox fx:id="centerVBox" alignment="TOP_CENTER" prefHeight="325.0" prefWidth="300.0" spacing="5.0">
+         <HBox alignment="CENTER">
+            <children>
+                <Label fx:id="temperatureLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="120.0" prefWidth="150.0" style="-fx-font-size: 50;" text="--" textAlignment="CENTER" />
+                <FontIcon fx:id="weatherIcon" textAlignment="CENTER" wrappingWidth="110.9921875" />
+            </children>
+         </HBox>
+         <HBox>
+            <children>
+               <Label text="Pressure:" />
+               <Region prefHeight="25.0" prefWidth="27.0" HBox.hgrow="ALWAYS" />
+                <Label fx:id="pressureLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="25.0" prefWidth="115.0" text="--" />
+            </children>
+         </HBox>
+         <HBox>
+            <children>
+               <Label text="Cloudiness:" />
+               <Region HBox.hgrow="ALWAYS" />
+                <Label fx:id="cloudinessLabel" alignment="CENTER" prefHeight="25.0" prefWidth="115.0" text="--" />
+            </children>
+         </HBox>
+         <HBox>
+            <children>
+               <Label text="Wind speed:" />
+               <Region HBox.hgrow="ALWAYS" />
+                <Label fx:id="windSpeedLabel" alignment="CENTER" prefWidth="115.0" text="--" />
+            </children>
+         </HBox>
+         <HBox>
+            <children>
+               <Label text="Wind degree:" />
+               <Region HBox.hgrow="ALWAYS" />
+                <Label fx:id="windDegreeLabel" alignment="CENTER" prefWidth="115.0" text="--" />
+            </children>
+         </HBox>
+         <HBox>
+            <children>
+               <Label text="Air (PM2.5):" />
+               <Region HBox.hgrow="ALWAYS" />
+                <Label fx:id="pm25Label" alignment="CENTER" prefWidth="115.0" text="--" />
+            </children>
+         </HBox>
+         <HBox>
+            <children>
+               <Label text="Air (PM10):" />
+               <Region HBox.hgrow="ALWAYS" />
+                <Label fx:id="pm10Label" alignment="CENTER" contentDisplay="CENTER" prefWidth="115.0" text="--" />
+            </children>
+         </HBox>
+      </VBox>
+   </center>
+   <top>
+      <HBox fx:id="topHBox" alignment="CENTER" BorderPane.alignment="CENTER">
+         <children>
+             <JFXButton fx:id="refreshButton" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" textAlignment="CENTER">
+               <graphic>
+                  <FontIcon fx:id="refreshButtonIcon" />
+               </graphic></JFXButton>
+            <Region HBox.hgrow="ALWAYS" />
+            <Label alignment="CENTER" contentDisplay="CENTER" text="Warszawa" />
+            <Region HBox.hgrow="ALWAYS" />
+            <JFXButton fx:id="settingsButton" contentDisplay="GRAPHIC_ONLY">
+               <graphic>
+                  <FontIcon fx:id="settingsButtonIcon" />
+               </graphic></JFXButton>
+         </children>
+      </HBox>
+   </top>
+</BorderPane>

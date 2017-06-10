@@ -46,7 +46,7 @@ public class AppMain extends Application {
         //JFXDecorator decorator = new JFXDecorator(mainWindow, root, false, false, true);
         //decorator.setOnCloseButtonAction(this::onClose);
 
-        Scene scene = new Scene(root, 300, 500);
+        Scene scene = new Scene(root, 300, 390);
         scene.setFill(null);
 
         // TODO
@@ -54,7 +54,7 @@ public class AppMain extends Application {
 
         mainWindow.setScene(scene);
         mainWindow.setWidth(300);
-        mainWindow.setHeight(500);
+        mainWindow.setHeight(390);
         mainWindow.setResizable(false);
     }
 
