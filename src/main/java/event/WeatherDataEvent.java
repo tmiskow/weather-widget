@@ -1,13 +1,16 @@
 package event;
 
 import data.WeatherData;
+import network.WeatherDataSource;
 
 public class WeatherDataEvent extends DataEvent {
 
     private WeatherData weatherData;
+    private WeatherDataSource source;
 
-    public WeatherDataEvent(WeatherData weatherData) {
+    public WeatherDataEvent(WeatherData weatherData, WeatherDataSource source) {
         this.weatherData = weatherData;
+        this.source = source;
     }
 
     public WeatherData getWeatherData() {
@@ -34,9 +37,12 @@ public class WeatherDataEvent extends DataEvent {
         return weatherData.getWindDegree();
     }
 
-    // TODO
+    public WeatherDataSource getSource() {
+        return source;
+    }
+
     @Override
     public String toString() {
-        return "Fetched weather data.";
+        return "Fetched weather data from " + source;
     }
 }

@@ -15,17 +15,14 @@ import java.util.concurrent.TimeUnit;
 public abstract class DataSource {
 
     private static final Logger logger = Logger.getLogger(DataSource.class);
-
-    private static final int POLL_INTERVAL = 60;
-    private static final int INITIAL_DELAY = 0;
     private static final int TIMEOUT = 20;
 
     protected abstract Observable<DataEvent> makeRequest();
 
     public Observable<AppEvent> dataSourceStream() {
-        return fixedIntervalStream().compose(this::wrapRequest)
-            .mergeWith(EventStream.getInstance().eventsInIO().ofType(RefreshRequestEvent.class)
-            .compose(this::wrapRequest));
+        return EventStream.getInstance().eventsInIO().ofType(RefreshRequestEvent.class)
+            .filter(refreshRequestEvent -> refreshRequestEvent.getSource() == this)
+            .compose(this::wrapRequest);
     }
 
     private <T> Observable<AppEvent> wrapRequest(Observable<T> observable) {
@@ -35,10 +32,6 @@ public abstract class DataSource {
                 .cast(AppEvent.class).onErrorReturn(ErrorEvent::new),
             Observable.just(new NetworkRequestFinishedEvent()))
         );
-    }
-
-    protected Observable<Long> fixedIntervalStream() {
-        return Observable.interval(INITIAL_DELAY, POLL_INTERVAL, TimeUnit.SECONDS, Schedulers.io());
     }
 
     protected HttpClientRequest<ByteBuf> prepareHttpGETRequest(String url) {

@@ -22,7 +22,7 @@ public class OpenWeatherDataSource extends WeatherDataSource {
                 .compose(this::unpackResponse)
                 .map(JsonHelper::asJsonObject)
                 .map(this::createWeatherData)
-                .map(WeatherDataEvent::new);
+                .map(weatherData -> new WeatherDataEvent(weatherData, this));
     }
 
     private WeatherData createWeatherData(JsonObject jsonObject) {
@@ -47,5 +47,10 @@ public class OpenWeatherDataSource extends WeatherDataSource {
         weatherData.setWindDegree(windDegree);
 
         return weatherData;
+    }
+
+    @Override
+    public String toString() {
+        return "openweathermap.org";
     }
 }

@@ -1,12 +1,12 @@
-* {
+Label {
     -fx-text-fill: #e1f5fe;
     -fx-font-family: "Roboto";
     -fx-font-size: 20;
-    -fx-icon-color: #e1f5fe;
 }
 
 FontIcon {
     -fx-icon-size: 22px;
+    -fx-icon-color: #e1f5fe;
 }
 
 #main {
@@ -44,4 +44,8 @@ FontIcon {
 #weatherIcon {
     -fx-icon-size: 70px;
     -fx-icon-code: wi-day-cloudy;
+}
+
+.popupButton {
+    -fx-text-fill: black;
 }

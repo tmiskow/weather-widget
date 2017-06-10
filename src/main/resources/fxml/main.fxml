@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.ContextMenu?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.RadioMenuItem?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
@@ -71,10 +75,27 @@
             <Region HBox.hgrow="ALWAYS" />
             <Label alignment="CENTER" contentDisplay="CENTER" text="Warszawa" />
             <Region HBox.hgrow="ALWAYS" />
-            <JFXButton fx:id="settingsButton" contentDisplay="GRAPHIC_ONLY">
+            <JFXButton fx:id="settingsButton" contentDisplay="GRAPHIC_ONLY" onAction="#showPopupMenu">
                <graphic>
                   <FontIcon fx:id="settingsButtonIcon" />
-               </graphic></JFXButton>
+               </graphic>
+               <contextMenu>
+                  <ContextMenu fx:id="settingsPopupMenu">
+                    <items>
+                        <Menu fx:id="weatherdataSourceMenu" mnemonicParsing="false" text="Weather data source">
+                          <items>
+                              <RadioMenuItem fx:id="openWeatherToggle" mnemonicParsing="false" styleClass="popupButton" text="openweathermap.org">
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="sourceToggleGroup" />
+                                 </toggleGroup>
+                              </RadioMenuItem>
+                              <RadioMenuItem fx:id="meteoWeatherToggle" mnemonicParsing="false" styleClass="popupButton" text="meteo.waw.pl" toggleGroup="$sourceToggleGroup" />
+                          </items>
+                        </Menu>
+                    </items>
+                  </ContextMenu>
+               </contextMenu>
+            </JFXButton>
          </children>
       </HBox>
    </top>

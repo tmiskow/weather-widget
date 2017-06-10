@@ -23,7 +23,7 @@ public class MeteoWeatherDataSource extends WeatherDataSource {
         return RxNetty.createHttpRequest(prepareHttpGETRequest(URL))
             .compose(this::unpackResponse)
             .map(this::createWeatherData)
-            .map(WeatherDataEvent::new);
+            .map(weatherData -> new WeatherDataEvent(weatherData, this));
     }
 
     protected WeatherData createWeatherData(String html) {
@@ -72,4 +72,8 @@ public class MeteoWeatherDataSource extends WeatherDataSource {
         }
     }
 
+    @Override
+    public String toString() {
+        return "meteo.waw.pl";
+    }
 }

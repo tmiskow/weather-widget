@@ -71,6 +71,9 @@ public class AppMain extends Application {
                 airQualityDataEvent + "\n\t" + airQualityDataEvent.getAirQualityData())
             .subscribe(logger::info);
 
+        eventStream.getEvents().ofType(WeatherDataSourceChangeEvent.class)
+            .subscribe(logger::info);
+
         eventStream.getEvents().ofType(ErrorEvent.class)
             .subscribe(logger::error);
     }
