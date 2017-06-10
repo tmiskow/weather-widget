@@ -26,12 +26,13 @@ public class MeteoWeatherDataSource extends WeatherDataSource {
             .map(weatherData -> new WeatherDataEvent(weatherData, this));
     }
 
-    protected WeatherData createWeatherData(String html) {
+    private WeatherData createWeatherData(String html) {
         try {
-            Document document = Jsoup.connect(URL).get();
+            Document document = Jsoup.parse(html);
 
             String temperatureString = document.getElementById("PARAM_0_TA").text();
             String pressureString = document.getElementById("PARAM_0_PR").text();
+            String humidityString = document.getElementById("PARAM_0_RH").text();
             String windSpeedString = document.getElementById("PARAM_WV").text();
             String windDegreeString = document.getElementById("PARAM_WD").text();
 
@@ -42,6 +43,7 @@ public class MeteoWeatherDataSource extends WeatherDataSource {
 
             float temperature = format.parse(temperatureString).floatValue();
             float pressure = format.parse(pressureString).floatValue();
+            float humidity = format.parse(humidityString).floatValue();
             float windSpeed = format.parse(windSpeedString).floatValue();
             float windDegree = format.parse(windDegreeString).floatValue();
 
@@ -49,13 +51,13 @@ public class MeteoWeatherDataSource extends WeatherDataSource {
 
             weatherData.setTemperature(temperature);
             weatherData.setPressure(pressure);
+            weatherData.setHumidity(humidity);
             weatherData.setWindSpeed(windSpeed);
             weatherData.setWindDegree(windDegree);
-            weatherData.setCloudiness(null);
 
             return weatherData;
 
-        } catch (IOException | ParseException e) {
+        } catch (ParseException e) {
             Observable.just(new ErrorEvent(e)).cast(AppEvent.class)
                 .mergeWith(EventStream.getInstance().getEvents());
 

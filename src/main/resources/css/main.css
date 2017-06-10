@@ -43,9 +43,22 @@ FontIcon {
 
 #weatherIcon {
     -fx-icon-size: 70px;
-    -fx-icon-code: wi-day-cloudy;
+    -fx-icon-code: wi-cloud-refresh;
+}
+
+#windSpeedLabel {
+    -fx-font-size: 30;
+}
+
+#windDirectionIcon {
+    -fx-icon-size: 40px;
+    -fx-icon-code: fa-long-arrow-up;
 }
 
 .popupButton {
     -fx-text-fill: black;
+}
+
+#infoLabel {
+    -fx-font-size: 16;
 }

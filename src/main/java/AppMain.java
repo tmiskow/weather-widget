@@ -46,15 +46,15 @@ public class AppMain extends Application {
         //JFXDecorator decorator = new JFXDecorator(mainWindow, root, false, false, true);
         //decorator.setOnCloseButtonAction(this::onClose);
 
-        Scene scene = new Scene(root, 300, 390);
+        Scene scene = new Scene(root, 320, 440);
         scene.setFill(null);
 
         // TODO
         //scene.getStylesheets().addAll(getClass().getResource(FONT_CSS).toExternalForm());
 
         mainWindow.setScene(scene);
-        mainWindow.setWidth(300);
-        mainWindow.setHeight(390);
+        mainWindow.setWidth(320);
+        mainWindow.setHeight(440);
         mainWindow.setResizable(false);
     }
 
@@ -70,6 +70,12 @@ public class AppMain extends Application {
             .map(airQualityDataEvent ->
                 airQualityDataEvent + "\n\t" + airQualityDataEvent.getAirQualityData())
             .subscribe(logger::info);
+
+        eventStream.getEvents().ofType(NetworkRequestIssuedEvent.class)
+                .subscribe(logger::info);
+
+        eventStream.getEvents().ofType(NetworkRequestFinishedEvent.class)
+                .subscribe(logger::info);
 
         eventStream.getEvents().ofType(WeatherDataSourceChangeEvent.class)
             .subscribe(logger::info);

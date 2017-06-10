@@ -27,24 +27,38 @@ public class OpenWeatherDataSource extends WeatherDataSource {
 
     private WeatherData createWeatherData(JsonObject jsonObject) {
 
+        JsonObject weather = jsonObject.getAsJsonArray("weather").get(0).getAsJsonObject();
         JsonObject main = jsonObject.getAsJsonObject("main");
         JsonObject clouds = jsonObject.getAsJsonObject("clouds");
         JsonObject wind = jsonObject.getAsJsonObject("wind");
 
-        float temperature = main.get("temp").getAsFloat();
-        temperature = WeatherData.convertfromKelvinToCelsius(temperature);
+        Float temperature, pressure, humidity, cloudiness, windSpeed, windDegree;
+        String iconCode;
 
-        float pressure = main.get("pressure").getAsFloat();
-        float cloudiness = clouds.get("all").getAsFloat();
-        float windSpeed = wind.get("speed").getAsFloat();
-        float windDegree = wind.get("deg").getAsFloat();
+        if (main.has("temp")) {
+            temperature = main.get("temp").getAsFloat();
+            temperature = WeatherData.convertFromKelvinToCelsius(temperature);
+        }
+        else {
+            temperature = null;
+        }
+
+        pressure = main.has("pressure") ? main.get("pressure").getAsFloat() : null;
+        humidity = main.has("humidity") ? main.get("humidity").getAsFloat() : null;
+        cloudiness = clouds.has("all") ? clouds.get("all").getAsFloat() : null;
+        windSpeed = wind.has("speed") ? wind.get("speed").getAsFloat() : null;
+        windDegree = wind.has("deg") ? wind.get("deg").getAsFloat() : null;
+
+        iconCode = weather.has("icon") ? weather.get("icon").getAsString() : "";
 
         WeatherData weatherData = new WeatherData();
         weatherData.setTemperature(temperature);
         weatherData.setPressure(pressure);
         weatherData.setCloudiness(cloudiness);
+        weatherData.setHumidity(humidity);
         weatherData.setWindSpeed(windSpeed);
         weatherData.setWindDegree(windDegree);
+        weatherData.setIconCode(iconCode);
 
         return weatherData;
     }

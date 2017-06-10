@@ -10,6 +10,6 @@ public class ErrorEvent extends AppEvent{
 
     @Override
     public String toString() {
-        return "ErrorEvent";
+        return "ErrorEvent:\n\t" + cause;
     }
 }

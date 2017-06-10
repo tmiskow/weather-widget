@@ -28,7 +28,7 @@ public abstract class DataSource {
     private <T> Observable<AppEvent> wrapRequest(Observable<T> observable) {
         return observable.flatMap(ignore ->
             Observable.concat(Observable.just(new NetworkRequestIssuedEvent()),
-            makeRequest().timeout(TIMEOUT, TimeUnit.SECONDS).doOnError(logger::error)
+            makeRequest().timeout(TIMEOUT, TimeUnit.SECONDS)
                 .cast(AppEvent.class).onErrorReturn(ErrorEvent::new),
             Observable.just(new NetworkRequestFinishedEvent()))
         );

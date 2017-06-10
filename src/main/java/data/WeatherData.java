@@ -4,7 +4,7 @@ public class WeatherData {
 
     private static float ABSOLUTE_ZERO = 273.15f;
 
-    public static float convertfromKelvinToCelsius(float kelvin) {
+    public static float convertFromKelvinToCelsius(float kelvin) {
         return kelvin - ABSOLUTE_ZERO;
     }
 
@@ -13,6 +13,9 @@ public class WeatherData {
     private Float cloudiness;
     private Float windSpeed;
     private Float windDegree;
+    private Float humidity;
+
+    String iconCode = "";
 
     public Float getTemperature() {
         return temperature;
@@ -74,12 +77,92 @@ public class WeatherData {
         this.windDegree = windDegree;
     }
 
+    public Float getHumidity() {
+        return humidity;
+    }
+
+    public String getHumidityString() {
+        return humidity != null ? Math.round(humidity) + "%" : "--";
+    }
+
+    public void setHumidity(Float humidity) {
+        this.humidity = humidity;
+    }
+
+    public String getIconCode() {
+        return iconCode;
+    }
+
+    public void setIconCode(String iconCode) {
+
+        switch (iconCode) {
+            case "01d":
+                this.iconCode = "wi-day-sunny";
+                break;
+
+            case "02d":
+                this.iconCode = "wi-day-cloudy";
+                break;
+
+            case "03d":
+            case "03n":
+                this.iconCode = "wi-cloud";
+                break;
+
+            case "04d":
+            case "04n":
+                this.iconCode = "wi-cloudy";
+                break;
+
+            case "09d":
+            case "09n":
+                this.iconCode = "wi-rain";
+                break;
+
+            case "10d":
+                this.iconCode = "wi-day-rain";
+                break;
+
+            case "11d":
+            case "11n":
+                this.iconCode = "wi-thunderstorm";
+                break;
+
+            case "13d":
+            case "13n":
+                this.iconCode = "wi-snow-wind";
+                break;
+
+            case "50d":
+            case "50n":
+                this.iconCode = "wi-fog";
+                break;
+
+            case "01n":
+                this.iconCode = "wi-night-clear";
+                break;
+
+            case "02n":
+                this.iconCode = "wi-night-cloudy";
+                break;
+
+            case "10n":
+                this.iconCode = "wi-night-rain";
+                break;
+
+            default:
+                this.iconCode = "";
+        }
+
+    }
+
     @Override
     public String toString() {
         return "Weather Data:" +
                 "\n\ttemperature = " + getTemperatureString() +
                 "\n\tpressure = " + getPressureString() +
                 "\n\tcloudiness = " + getCloudinessString() +
+                "\n\thumidity = " + getHumidityString() +
                 "\n\twindSpeed = " + getWindSpeedString() +
                 "\n\twindDegree = " + getWindDegreeString();
     }
