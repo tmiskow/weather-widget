@@ -5,15 +5,19 @@ import data.WeatherData;
 import event.*;
 import javafx.fxml.FXML;
 import javafx.geometry.Side;
-import javafx.scene.control.*;
-import network.*;
-import org.kordamp.ikonli.Ikon;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Label;
+import javafx.scene.control.RadioMenuItem;
+import javafx.scene.control.ToggleGroup;
+import network.AirQualityDataSource;
+import network.MeteoWeatherDataSource;
+import network.OpenWeatherDataSource;
+import network.WeatherDataSource;
 import org.kordamp.ikonli.javafx.FontIcon;
 import rx.Observable;
 import rx.observables.JavaFxObservable;
 import rx.schedulers.Schedulers;
 
-import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 public class MainWindowController {
@@ -93,7 +97,7 @@ public class MainWindowController {
             .map(l -> new RefreshRequestEvent(activeWeatherDataSource)));
 
         EventStream.getInstance().join(fixedIntervalStream()
-                .map(l -> new RefreshRequestEvent(airQualityDataSource)));
+            .map(l -> new RefreshRequestEvent(airQualityDataSource)));
 
         setupDataLabels();
         setupInfoLabel();
@@ -103,13 +107,14 @@ public class MainWindowController {
     }
 
     private void setupWeatherIcon() {
+
+        weatherIcon.setIconLiteral("wi-na");
+
         getWeatherDataEvents()
             .filter(weatherDataEvent -> weatherDataEvent.getSource() == activeWeatherDataSource)
             .map(WeatherDataEvent::getWeatherData)
-            .subscribe(weatherData -> {
-                weatherIcon.styleProperty().set("-fx-icon-size: 70px;\n" +
-                        "    -fx-icon-code: " + weatherData.getIconCode() + ";");
-            });
+            .subscribe(weatherData ->
+                weatherIcon.setIconLiteral(weatherData.getIconCode()));
     }
 
     private Observable<Long> fixedIntervalStream() {
@@ -151,7 +156,10 @@ public class MainWindowController {
             .filter(weatherDataEvent -> weatherDataEvent.getSource() == activeWeatherDataSource)
             .map(WeatherDataEvent::getWeatherData)
             .map(WeatherData::getWindDegree)
-            .subscribe(windDegree -> windDirectionIcon.setRotate(windDegree + 180));
+            .subscribe(windDegree -> {
+                windDirectionIcon.setVisible(true);
+                windDirectionIcon.setRotate(windDegree + 180);
+            });
 
         getAirQualityDataEvents().map(AirQualityDataEvent::getAirQualityData)
             .subscribe(airQualityData -> pm25Label.setText(airQualityData.getPM25String()));

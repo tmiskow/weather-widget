@@ -43,7 +43,6 @@ FontIcon {
 
 #weatherIcon {
     -fx-icon-size: 70px;
-    -fx-icon-code: wi-cloud-refresh;
 }
 
 #windSpeedLabel {
@@ -53,6 +52,7 @@ FontIcon {
 #windDirectionIcon {
     -fx-icon-size: 40px;
     -fx-icon-code: fa-long-arrow-up;
+    visibility: hidden;
 }
 
 .popupButton {

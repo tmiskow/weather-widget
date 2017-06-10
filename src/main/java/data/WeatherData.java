@@ -15,7 +15,7 @@ public class WeatherData {
     private Float windDegree;
     private Float humidity;
 
-    String iconCode = "";
+    String iconCode = "wi-na";
 
     public Float getTemperature() {
         return temperature;
@@ -151,7 +151,7 @@ public class WeatherData {
                 break;
 
             default:
-                this.iconCode = "";
+                this.iconCode = "wi-na";
         }
 
     }
@@ -159,6 +159,7 @@ public class WeatherData {
     @Override
     public String toString() {
         return "Weather Data:" +
+                "\n\ticon-code = " + getIconCode() +
                 "\n\ttemperature = " + getTemperatureString() +
                 "\n\tpressure = " + getPressureString() +
                 "\n\tcloudiness = " + getCloudinessString() +
