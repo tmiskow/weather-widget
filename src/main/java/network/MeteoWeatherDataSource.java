@@ -74,6 +74,6 @@ public class MeteoWeatherDataSource extends WeatherDataSource {
 
     @Override
     public String toString() {
-        return "meteo.waw.pl";
+        return "http://www.meteo.waw.pl/";
     }
 }

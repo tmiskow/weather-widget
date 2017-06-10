@@ -16,6 +16,6 @@ public class WeatherDataSourceChangeEvent extends AppEvent {
 
     @Override
     public String toString() {
-        return "WeatherDataSourceChangeEvent [" + newSource + "]";
+        return "Changed weather data source to " + newSource;
     }
 }

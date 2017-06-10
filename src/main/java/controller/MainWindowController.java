@@ -20,7 +20,7 @@ public class MainWindowController {
     // Data sources
     private WeatherDataSource openWeatherDataSource = new OpenWeatherDataSource();
     private WeatherDataSource meteoWeatherDataSource = new MeteoWeatherDataSource();
-    private AirQualitySource airQualitySource = new AirQualitySource();
+    private AirQualityDataSource airQualityDataSource = new AirQualityDataSource();
 
     private WeatherDataSource activeWeatherDataSource = openWeatherDataSource;
 
@@ -68,19 +68,19 @@ public class MainWindowController {
 
         EventStream.getInstance().join(openWeatherDataSource.dataSourceStream());
         EventStream.getInstance().join(meteoWeatherDataSource.dataSourceStream());
-        EventStream.getInstance().join(airQualitySource.dataSourceStream());
+        EventStream.getInstance().join(airQualityDataSource.dataSourceStream());
 
         EventStream.getInstance().join(JavaFxObservable.actionEventsOf(refreshButton)
             .map(actionEvent -> new RefreshRequestEvent(activeWeatherDataSource)));
 
         EventStream.getInstance().join(JavaFxObservable.actionEventsOf(refreshButton)
-            .map(actionEvent -> new RefreshRequestEvent(airQualitySource)));
+            .map(actionEvent -> new RefreshRequestEvent(airQualityDataSource)));
 
         EventStream.getInstance().join(fixedIntervalStream()
             .map(l -> new RefreshRequestEvent(activeWeatherDataSource)));
 
         EventStream.getInstance().join(fixedIntervalStream()
-                .map(l -> new RefreshRequestEvent(airQualitySource)));
+                .map(l -> new RefreshRequestEvent(airQualityDataSource)));
 
         setupLabels();
         setupWeatherDataSourceSelection();

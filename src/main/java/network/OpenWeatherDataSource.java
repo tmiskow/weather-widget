@@ -51,6 +51,6 @@ public class OpenWeatherDataSource extends WeatherDataSource {
 
     @Override
     public String toString() {
-        return "openweathermap.org";
+        return "http://openweathermap.org/";
     }
 }

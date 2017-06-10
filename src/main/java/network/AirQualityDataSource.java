@@ -13,7 +13,7 @@ import rx.Observable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AirQualitySource extends DataSource {
+public class AirQualityDataSource extends DataSource {
 
     private static final String URL = "http://powietrze.gios.gov.pl/pjp/current/getAQIDetailsList?param=AQI";
 
@@ -25,7 +25,7 @@ public class AirQualitySource extends DataSource {
                 .compose(this::unpackResponse)
                 .map(JsonHelper::asJsonArray)
                 .map(this::createAirQualityData)
-                .map(AirQualityDataEvent::new);
+                .map(airQualityData -> new AirQualityDataEvent(airQualityData, this));
     }
 
     private AirQualityData createAirQualityData(JsonArray jsonArray) {
@@ -68,5 +68,10 @@ public class AirQualitySource extends DataSource {
         pm25Average /= pm25List.size();
 
         return new AirQualityData(pm25Average, pm10Average);
+    }
+
+    @Override
+    public String toString() {
+        return "http://powietrze.gios.gov.pl";
     }
 }

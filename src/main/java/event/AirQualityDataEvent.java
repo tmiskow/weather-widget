@@ -1,13 +1,16 @@
 package event;
 
 import data.AirQualityData;
+import network.AirQualityDataSource;
 
 public class AirQualityDataEvent extends DataEvent {
 
     private AirQualityData airQualityData;
+    private AirQualityDataSource source;
 
-    public AirQualityDataEvent(AirQualityData airQualityData) {
+    public AirQualityDataEvent(AirQualityData airQualityData, AirQualityDataSource source) {
         this.airQualityData = airQualityData;
+        this.source = source;
     }
 
     public AirQualityData getAirQualityData() {
@@ -24,6 +27,6 @@ public class AirQualityDataEvent extends DataEvent {
 
     @Override
     public String toString() {
-        return "Fetched air quality data.";
+        return "Fetched air quality data from " + source;
     }
 }
