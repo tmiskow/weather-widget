@@ -8,7 +8,6 @@ import io.reactivex.netty.protocol.http.client.HttpClientRequest;
 import io.reactivex.netty.protocol.http.client.HttpClientResponse;
 import org.apache.log4j.Logger;
 import rx.Observable;
-import rx.schedulers.Schedulers;
 
 import java.util.concurrent.TimeUnit;
 

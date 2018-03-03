@@ -42,7 +42,7 @@
                 <configuration>
                     <executable>java</executable>
                     <workingDirectory>${project.basedir}</workingDirectory>
-                    <mainClass>pl.edu.mimuw.xchange.AppMain</mainClass>
+                    <mainClass>AppMain</mainClass>
 
                 </configuration>
             </plugin>
@@ -57,7 +57,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>pl.edu.mimuw.exchange.AppMain</mainClass>
+                            <mainClass>AppMain</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -78,6 +78,18 @@
                 <version>3.0.2</version>
                 <configuration>
                     <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>AppMain</mainClass>
+                        </manifest>
+                    </archive>
                 </configuration>
             </plugin>
         </plugins>

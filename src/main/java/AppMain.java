@@ -42,15 +42,8 @@ public class AppMain extends Application {
     private void setupMainWindow() throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource(FXML_MAIN));
 
-        // TODO
-        //JFXDecorator decorator = new JFXDecorator(mainWindow, root, false, false, true);
-        //decorator.setOnCloseButtonAction(this::onClose);
-
         Scene scene = new Scene(root, 320, 440);
         scene.setFill(null);
-
-        // TODO
-        //scene.getStylesheets().addAll(getClass().getResource(FONT_CSS).toExternalForm());
 
         mainWindow.setScene(scene);
         mainWindow.setWidth(320);
@@ -70,12 +63,6 @@ public class AppMain extends Application {
             .map(airQualityDataEvent ->
                 airQualityDataEvent + "\n\t" + airQualityDataEvent.getAirQualityData())
             .subscribe(logger::info);
-
-        eventStream.getEvents().ofType(NetworkRequestIssuedEvent.class)
-                .subscribe(logger::info);
-
-        eventStream.getEvents().ofType(NetworkRequestFinishedEvent.class)
-                .subscribe(logger::info);
 
         eventStream.getEvents().ofType(WeatherDataSourceChangeEvent.class)
             .subscribe(logger::info);

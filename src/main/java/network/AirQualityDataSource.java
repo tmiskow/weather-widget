@@ -6,7 +6,6 @@ import com.google.gson.JsonObject;
 import data.AirQualityData;
 import event.AirQualityDataEvent;
 import event.DataEvent;
-import event.WeatherDataEvent;
 import io.reactivex.netty.RxNetty;
 import rx.Observable;
 

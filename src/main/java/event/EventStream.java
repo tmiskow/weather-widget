@@ -1,12 +1,10 @@
 package event;
 
-import javafx.beans.binding.Binding;
 import rx.Observable;
 import rx.Subscription;
 import rx.javafx.sources.CompositeObservable;
 import rx.schedulers.JavaFxScheduler;
 import rx.schedulers.Schedulers;
-import rx.subscribers.JavaFxSubscriber;
 
 public class EventStream {
 
@@ -34,10 +32,6 @@ public class EventStream {
 
     public Observable<AppEvent> eventsInIO() {
         return getEvents().compose(ioTransformer());
-    }
-
-    public <T> Binding<T> binding(Observable<T> observable) {
-        return JavaFxSubscriber.toBinding(observable);
     }
 
     private <T> Observable.Transformer<T, T> fxTransformer() {

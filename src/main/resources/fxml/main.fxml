@@ -90,7 +90,7 @@
                   <FontIcon fx:id="refreshButtonIcon" />
                </graphic></JFXButton>
             <Region HBox.hgrow="ALWAYS" />
-            <Label alignment="CENTER" contentDisplay="CENTER" text="Warszawa" />
+            <Label alignment="CENTER" contentDisplay="CENTER" text="Warsaw" />
             <Region HBox.hgrow="ALWAYS" />
             <JFXButton fx:id="settingsButton" contentDisplay="GRAPHIC_ONLY" onAction="#showPopupMenu">
                <graphic>
